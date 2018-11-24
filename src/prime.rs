@@ -1,6 +1,5 @@
-#[allow(dead_code)]
 #[snippet = "gen_prime_table"]
-fn gen_prime_table(n: u64) -> Vec<bool> {
+pub fn gen_prime_table(n: u64) -> Vec<bool> {
   let mut is_prime = vec![true; n as usize + 1];
   is_prime[0] = false;
   is_prime[1] = false;
@@ -18,9 +17,8 @@ fn gen_prime_table(n: u64) -> Vec<bool> {
   is_prime
 }
 
-#[allow(dead_code)]
 #[snippet = "gen_primes"]
-fn gen_primes(n: u64) -> Vec<u64> {
+pub fn gen_primes(n: u64) -> Vec<u64> {
   let is_prime = gen_prime_table(n);
   let mut primes = vec![];
   for i in 2..n+1 {
