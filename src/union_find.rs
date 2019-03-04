@@ -1,8 +1,10 @@
+#[snippet = "union_find"]
 #[derive(Debug)]
 struct UnionFind {
     par: Vec<usize>,
 }
 
+#[snippet = "union_find"]
 impl UnionFind {
     fn new(n: usize) -> UnionFind {
         let mut vec = vec![0; n];
