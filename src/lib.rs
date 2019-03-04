@@ -10,3 +10,4 @@ pub mod combination;
 pub mod gcd;
 pub mod prime;
 pub mod scanner;
+pub mod union_find;
