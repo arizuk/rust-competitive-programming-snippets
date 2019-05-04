@@ -10,23 +10,46 @@ pub struct Scanner<R> {
 impl<R: std::io::Read> Scanner<R> {
     pub fn read<T: std::str::FromStr>(&mut self) -> T {
         use std::io::Read;
-        let buf = self
+        let buf: String = self
             .reader
             .by_ref()
             .bytes()
-            .map(|b| b.unwrap())
-            .skip_while(|&b| b == b' ' || b == b'\n')
-            .take_while(|&b| b != b' ' && b != b'\n')
-            .collect::<Vec<_>>();
-        unsafe { std::str::from_utf8_unchecked(&buf) }
-            .parse()
-            .ok()
-            .expect("Parse error.")
+            .map(|b| b.unwrap() as char)
+            .skip_while(|c| c.is_whitespace())
+            .take_while(|c| !c.is_whitespace())
+            .collect();
+        buf.parse::<T>().ok().expect("Parse error.")
     }
     pub fn read_vec<T: std::str::FromStr>(&mut self, n: usize) -> Vec<T> {
         (0..n).map(|_| self.read()).collect()
     }
     pub fn chars(&mut self) -> Vec<char> {
         self.read::<String>().chars().collect()
+    }
+}
+
+#[test]
+fn test_scanner() {
+    use std::io::BufReader;
+    {
+        let r = BufReader::new("12\n34".as_bytes());
+        let mut scanner = Scanner { reader: r };
+        let n: usize = scanner.read();
+        assert_eq!(n, 12);
+
+        let n: usize = scanner.read();
+        assert_eq!(n, 34);
+    }
+    {
+        let r = BufReader::new("ab\n34".as_bytes());
+        let mut scanner = Scanner { reader: r };
+        let chars = scanner.chars();
+        assert_eq!(chars, ['a', 'b']);
+    }
+    {
+        let r = BufReader::new("1 2 3".as_bytes());
+        let mut scanner = Scanner { reader: r };
+        let ns: Vec<usize> = scanner.read_vec(3);
+        assert_eq!(ns, [1, 2, 3]);
     }
 }
