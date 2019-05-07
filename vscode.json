@@ -112,6 +112,13 @@
     ],
     "description": "let mut vector"
   },
+  "Vec": {
+    "prefix": "vec",
+    "body": [
+      "Vec<${1:usize}>"
+    ],
+    "description": "vector"
+  },
   "Vec char": {
     "prefix": "vecc",
     "body": [
@@ -133,18 +140,41 @@
     ],
     "description": "3-dimentional vector"
   },
-  "dp2": {
-    "prefix": "dp2",
+  "1-d vector": {
+    "prefix": "vc",
     "body": [
-      "let mut dp = vec![vec![${1:0}; ${2:n}]; ${3:m}]"
+      "let mut ${1:x} = vec![${2:0}; ${3:n}];"
+    ],
+    "description": "Declare 1-dimentional vector"
+  },
+  "2d vector": {
+    "prefix": "vc2",
+    "body": [
+      "let mut ${1:x} = vec![vec![${2:1}; ${3:n}]; ${4:m}]"
     ],
     "description": "Declare 2-dimentional vector"
   },
-  "dp3": {
-    "prefix": "dp3",
+  "3d vector": {
+    "prefix": "vc3",
     "body": [
-      "let mut dp = vec![vec![vec![${1:0}; ${2:n}]; ${3:m}]; ${4:k}]"
+      "let mut ${1:x} = vec![vec![vec![${2:0}; ${3:n}]; ${4:m}]; ${5:k}]"
     ],
     "description": "Declare 3-dimentional vector"
+  },
+  "struct Solver": {
+    "prefix": "stsolver",
+    "body": [
+      "#[derive(Debug)]",
+      "struct Solver {",
+      "  n: usize",
+      "}",
+      "",
+      "impl Solver {",
+      "  fn new(n:usize) -> Self {",
+      "    Solver { n: n }",
+      "  }",
+      "}"
+    ],
+    "description": "Solver structures template"
   }
 }
