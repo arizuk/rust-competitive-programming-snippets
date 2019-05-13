@@ -12,7 +12,7 @@ impl BIT {
             bit_size *= 2;
         }
         BIT {
-            bits: vec![0; bit_size+1],
+            bits: vec![0; bit_size + 1],
         }
     }
 
@@ -44,7 +44,7 @@ fn test() {
     let a = [1, 2, 3, 4, 5, 6];
     let mut bit = BIT::new(a.len());
     for i in 0..a.len() {
-        bit.add(i+1, a[i]);
+        bit.add(i + 1, a[i]);
     }
     assert_eq!(bit.sum(1), 1);
     assert_eq!(bit.sum(3), 6);

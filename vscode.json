@@ -13,7 +13,7 @@
     ],
     "description": "Println shortcut"
   },
-  "ForI": {
+  "range for loop": {
     "prefix": "fi",
     "body": [
       "for ${1:i} in ${2:0}..${3:n} {",
@@ -50,6 +50,13 @@
     ],
     "description": "min4"
   },
+  "const mod": {
+    "prefix": "constmod",
+    "body": [
+      "const MOD: usize = 1e9 as usize + 7;"
+    ],
+    "description": "declare MOD const"
+  },
   "with index": {
     "prefix": "with_index",
     "body": [
@@ -58,7 +65,7 @@
     ],
     "description": "map to list with index"
   },
-  "input": {
+  "input parsing macro": {
     "prefix": "input",
     "body": [
       "input!{",
@@ -91,26 +98,26 @@
     ],
     "description": "3 arguments"
   },
-  "as usize": {
+  "usize cast": {
     "prefix": "asu",
     "body": [
       "as usize"
     ],
     "description": "as usize"
   },
-  "let mut": {
-    "prefix": "lm",
+  "i64 cast": {
+    "prefix": "asi",
+    "body": [
+      "as i64"
+    ],
+    "description": "as u64"
+  },
+  "integer": {
+    "prefix": "integer",
     "body": [
       "let mut ${1:x} = ${2:0};"
     ],
-    "description": "let mut"
-  },
-  "let mut vector": {
-    "prefix": "lmv",
-    "body": [
-      "let mut ${1:x} = vec![];"
-    ],
-    "description": "let mut vector"
+    "description": "declare integer"
   },
   "Vec": {
     "prefix": "vec",
