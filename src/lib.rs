@@ -6,6 +6,7 @@
 extern crate test;
 
 pub mod binary_search;
+pub mod bit;
 pub mod combination;
 pub mod gcd;
 pub mod prime;

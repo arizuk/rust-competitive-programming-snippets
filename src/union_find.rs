@@ -1,12 +1,12 @@
 #[snippet = "union_find"]
 #[derive(Debug)]
-struct UnionFind {
+pub struct UnionFind {
     par: Vec<usize>,
 }
 
 #[snippet = "union_find"]
 impl UnionFind {
-    fn new(n: usize) -> UnionFind {
+    pub fn new(n: usize) -> UnionFind {
         let mut vec = vec![0; n];
         for i in 0..n {
             vec[i] = i;
@@ -14,7 +14,7 @@ impl UnionFind {
         UnionFind { par: vec }
     }
 
-    fn find(&mut self, x: usize) -> usize {
+    pub fn find(&mut self, x: usize) -> usize {
         if x == self.par[x] {
             x
         } else {
@@ -25,11 +25,11 @@ impl UnionFind {
         }
     }
 
-    fn same(&mut self, a: usize, b: usize) -> bool {
+    pub fn same(&mut self, a: usize, b: usize) -> bool {
         self.find(a) == self.find(b)
     }
 
-    fn unite(&mut self, a: usize, b: usize) {
+    pub fn unite(&mut self, a: usize, b: usize) {
         let apar = self.find(a);
         let bpar = self.find(b);
         self.par[apar] = bpar;
