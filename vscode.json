@@ -1,12 +1,26 @@
 {
-  "Dump": {
+  "println": {
+    "prefix": "puts",
+    "body": [
+      "println!(\"{}\", ${1:ans});"
+    ],
+    "description": "Println shortcut"
+  },
+  "print": {
+    "prefix": "put",
+    "body": [
+      "print!(\"{} \", ${1:ans});"
+    ],
+    "description": "Print shortcut"
+  },
+  "dump": {
     "prefix": "dump",
     "body": [
       "println!(\"${1}={:?}\", ${1});"
     ],
     "description": "Println shortcut"
   },
-  "Dump2": {
+  "dump2": {
     "prefix": "dump2",
     "body": [
       "println!(\"${1:x}={:?} ${2:y}={:?}\", ${1:x}, ${2:y});"
@@ -171,14 +185,15 @@
   "struct Solver": {
     "prefix": "stsolver",
     "body": [
+      "use std::cell::RefCell;",
       "#[derive(Debug)]",
       "struct Solver {",
-      "  n: usize",
+      "  edges: Vec<Vec<usize>>,",
+      "  // dp: RefCell<Vec<Vec<usize>>>",
       "}",
-      "",
       "impl Solver {",
-      "  fn new(n:usize) -> Self {",
-      "    Solver { n: n }",
+      "  fn new(edges: Vec<Vec<usize>>) -> Self {",
+      "    Solver { edges: edges }",
       "  }",
       "}"
     ],
