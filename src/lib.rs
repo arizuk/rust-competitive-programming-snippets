@@ -9,6 +9,7 @@ pub mod binary_search;
 pub mod bit;
 pub mod combination;
 pub mod gcd;
+pub mod mod_utils;
 pub mod prime;
 pub mod scanner;
 pub mod union_find;
