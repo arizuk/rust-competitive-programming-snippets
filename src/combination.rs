@@ -1,3 +1,4 @@
+#[snippet = "combination"]
 pub fn combination(n: u64, mut k: u64) -> u64 {
     assert!(n >= k);
     if k * 2 > n {
