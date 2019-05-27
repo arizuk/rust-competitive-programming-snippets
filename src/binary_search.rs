@@ -58,6 +58,30 @@ pub fn uppper_bound<T: Ord>(a: &Vec<T>, x: &T) -> Option<usize> {
     }
 }
 
+#[snippet = "binary_search_by"]
+// [l, r]
+pub fn binary_search_by<F>(mut l: usize, mut r: usize, f: &F) -> Option<usize>
+where
+    F: Fn(usize) -> bool,
+{
+    assert!(l <= r);
+    r += 1;
+    let r_bound = r;
+    while r != l {
+        let m = l + (r - l) / 2; // avoid overflow
+        if f(m) {
+            r = m;
+        } else {
+            l = m + 1;
+        }
+    }
+    if r == r_bound {
+        None
+    } else {
+        Some(r)
+    }
+}
+
 #[test]
 fn test_binary_search() {
     let a = vec![1, 2, 4, 4, 7, 12, 54, 60];
@@ -72,4 +96,23 @@ fn test_binary_search() {
     assert_eq!(uppper_bound(&a, &0), Some(0));
     assert_eq!(uppper_bound(&a, &4), Some(4));
     assert_eq!(uppper_bound(&a, &61), None);
+}
+
+#[test]
+fn test_binary_search_by() {
+    let f = |m| m * m >= 1000;
+    let ans = binary_search_by(1, 1000, &f);
+    assert_eq!(Some(32), ans);
+
+    let ans = binary_search_by(1, 32, &f);
+    assert_eq!(Some(32), ans);
+
+    let ans = binary_search_by(1, 31, &f);
+    assert_eq!(None, ans);
+
+    let ans = binary_search_by(32, 100, &f);
+    assert_eq!(Some(32), ans);
+
+    let ans = binary_search_by(33, 100, &f);
+    assert_eq!(Some(33), ans);
 }
