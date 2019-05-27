@@ -1,55 +1,52 @@
-use std::cmp::Ordering;
+#[snippet = "lower_bound"]
+pub fn lower_bound<T: Ord>(a: &Vec<T>, x: &T) -> Option<usize> {
+    use std::cmp::Ordering;
+    let mut l = 0;
+    let mut r = a.len();
 
-#[snippet = "BinarySearch"]
-/// Equivalent to std::lowerbound and std::upperbound in c++
-pub trait BinarySearch<T> {
-    fn lower_bound(&self, &T) -> usize;
-    fn upper_bound(&self, &T) -> usize;
+    while l != r {
+        let m = l + (r - l) / 2;
+        match a[m].cmp(x) {
+            Ordering::Less => l = m + 1,
+            Ordering::Equal | Ordering::Greater => r = m,
+        }
+    }
+    if l == a.len() {
+        None
+    } else {
+        Some(l)
+    }
 }
 
-#[snippet = "BinarySearch"]
-impl<T: Ord> BinarySearch<T> for [T] {
-    fn lower_bound(&self, x: &T) -> usize {
-        let mut low = 0;
-        let mut high = self.len();
+#[snippet = "uppper_bound"]
+pub fn uppper_bound<T: Ord>(a: &Vec<T>, x: &T) -> Option<usize> {
+    use std::cmp::Ordering;
+    let mut l = 0;
+    let mut r = a.len();
 
-        while low != high {
-            let mid = (low + high) / 2;
-            match self[mid].cmp(x) {
-                Ordering::Less => {
-                    low = mid + 1;
-                }
-                Ordering::Equal | Ordering::Greater => {
-                    high = mid;
-                }
-            }
+    while l != r {
+        let m = l + (r - l) / 2;
+        match a[m].cmp(x) {
+            Ordering::Less | Ordering::Equal => l = m + 1,
+            Ordering::Greater => r = m,
         }
-        low
     }
-
-    fn upper_bound(&self, x: &T) -> usize {
-        let mut low = 0;
-        let mut high = self.len();
-
-        while low != high {
-            let mid = (low + high) / 2;
-            match self[mid].cmp(x) {
-                Ordering::Less | Ordering::Equal => {
-                    low = mid + 1;
-                }
-                Ordering::Greater => {
-                    high = mid;
-                }
-            }
-        }
-        low
+    if l == a.len() {
+        None
+    } else {
+        Some(l)
     }
 }
 
 #[test]
 fn test_binary_search() {
-    let vec = vec![1, 2, 4, 6, 7, 12, 54, 60];
+    let a = vec![1, 2, 4, 4, 7, 12, 54, 60];
 
-    assert_eq!(vec.lower_bound(&4), 2);
-    assert_eq!(vec.upper_bound(&4), 3);
+    assert_eq!(lower_bound(&a, &0), Some(0));
+    assert_eq!(lower_bound(&a, &4), Some(2));
+    assert_eq!(lower_bound(&a, &61), None);
+
+    assert_eq!(uppper_bound(&a, &0), Some(0));
+    assert_eq!(uppper_bound(&a, &4), Some(4));
+    assert_eq!(uppper_bound(&a, &61), None);
 }
