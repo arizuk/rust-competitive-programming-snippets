@@ -1,5 +1,5 @@
 #[snippet = "binary_indexed_tree"]
-pub mod bit {
+pub mod ds {
     use std::ops::{AddAssign, Sub};
 
     #[derive(Debug)]
@@ -50,7 +50,7 @@ pub mod bit {
 #[test]
 fn test() {
     let a = [1, 2, 3, 4, 5, 6];
-    let mut bit = bit::BIT::new(a.len());
+    let mut bit = ds::BIT::new(a.len());
     for i in 0..a.len() {
         bit.add(i + 1, a[i]);
     }
