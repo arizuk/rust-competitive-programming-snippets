@@ -5,29 +5,28 @@ pub mod bit {
     #[derive(Debug)]
     pub struct BIT<T> {
         bits: Vec<T>,
-        init: T
     }
 
-    impl <T> BIT <T>
-    where T: Copy + AddAssign + Sub<Output = T>
+    impl<T> BIT<T>
+    where
+        T: Copy + AddAssign + Sub<Output = T> + Default,
     {
-        pub fn new(size: usize, init: T) -> Self {
+        pub fn new(size: usize) -> Self {
             let bit_size = size.next_power_of_two();
             BIT {
-                bits: vec![init; bit_size + 1],
-                init: init,
+                bits: vec![T::default(); bit_size + 1],
             }
         }
 
         // [l, r] l,r: 1-indexed
         pub fn range_sum(&self, l: usize, r: usize) -> T {
-            self.sum(r) - self.sum(l-1)
+            self.sum(r) - self.sum(l - 1)
         }
 
         // i: 1-indexed but returns 0 if i=0 is given.
         pub fn sum(&self, i: usize) -> T {
             let mut i = i as i64;
-            let mut ret = self.init;
+            let mut ret = T::default();
             while i > 0 {
                 ret += self.bits[i as usize];
                 i -= i & -i;
@@ -51,7 +50,7 @@ pub mod bit {
 #[test]
 fn test() {
     let a = [1, 2, 3, 4, 5, 6];
-    let mut bit = bit::BIT::new(a.len(), 0);
+    let mut bit = bit::BIT::new(a.len());
     for i in 0..a.len() {
         bit.add(i + 1, a[i]);
     }
