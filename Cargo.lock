@@ -2,15 +2,15 @@
 # It is not intended for manual editing.
 [[package]]
 name = "cargo-snippet"
-version = "0.2.7"
+version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "snippets"
 version = "0.1.0"
 dependencies = [
- "cargo-snippet 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cargo-snippet 0.2.8 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [metadata]
-"checksum cargo-snippet 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)" = "f7174e0e01ce1c4270f6f134626cdc385a3077ec5a6ee82a2ebe5fea49915fcf"
+"checksum cargo-snippet 0.2.8 (registry+https://github.com/rust-lang/crates.io-index)" = "281cecba5544613ae3f76f2cc47562e09399c3145170d9cd38d82401f45131d5"
