@@ -3,6 +3,7 @@
 #![feature(test)]
 #![plugin(cargo_snippet)]
 
+extern crate rand;
 extern crate test;
 
 pub mod binary_search;
@@ -12,4 +13,5 @@ pub mod gcd;
 pub mod mod_utils;
 pub mod prime;
 pub mod scanner;
+pub mod segment_tree;
 pub mod union_find;

@@ -4,7 +4,7 @@ pub mod ds {
 
     #[derive(Debug)]
     pub struct BIT<T> {
-        bits: Vec<T>,
+        data: Vec<T>,
     }
 
     impl<T> BIT<T>
@@ -12,9 +12,9 @@ pub mod ds {
         T: Copy + AddAssign + Sub<Output = T> + Default,
     {
         pub fn new(size: usize) -> Self {
-            let bit_size = size.next_power_of_two();
+            let buf_size = size.next_power_of_two();
             BIT {
-                bits: vec![T::default(); bit_size + 1],
+                data: vec![T::default(); buf_size + 1],
             }
         }
 
@@ -28,7 +28,7 @@ pub mod ds {
             let mut i = i as i64;
             let mut ret = T::default();
             while i > 0 {
-                ret += self.bits[i as usize];
+                ret += self.data[i as usize];
                 i -= i & -i;
             }
             ret
@@ -37,10 +37,10 @@ pub mod ds {
         // i: 1-indexed
         pub fn add(&mut self, i: usize, value: T) {
             assert!(i > 0);
-            let n = self.bits.len() as i64;
+            let n = self.data.len() as i64;
             let mut i = i as i64;
             while i <= n {
-                self.bits[i as usize] += value;
+                self.data[i as usize] += value;
                 i += i & -i; // Add a last bit with 1
             }
         }
