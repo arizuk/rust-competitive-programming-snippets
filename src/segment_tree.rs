@@ -1,3 +1,4 @@
+#[snippet = "segment_tree"]
 pub mod ds {
     pub struct SegmentTree<T, F> {
         n: usize,
