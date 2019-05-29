@@ -19,7 +19,7 @@ pub fn binary_search<T: Ord>(a: &Vec<T>, x: &T) -> Result<usize, usize> {
 }
 
 #[snippet = "lower_bound"]
-pub fn lower_bound<T: Ord>(a: &Vec<T>, x: &T) -> Option<usize> {
+pub fn lower_bound<T: Ord>(a: &Vec<T>, x: &T) -> usize {
     use std::cmp::Ordering;
     let mut l = 0;
     let mut r = a.len();
@@ -31,15 +31,11 @@ pub fn lower_bound<T: Ord>(a: &Vec<T>, x: &T) -> Option<usize> {
             Ordering::Equal | Ordering::Greater => r = m,
         }
     }
-    if l == a.len() {
-        None
-    } else {
-        Some(l)
-    }
+    l
 }
 
 #[snippet = "uppper_bound"]
-pub fn uppper_bound<T: Ord>(a: &Vec<T>, x: &T) -> Option<usize> {
+pub fn uppper_bound<T: Ord>(a: &Vec<T>, x: &T) -> usize {
     use std::cmp::Ordering;
     let mut l = 0;
     let mut r = a.len();
@@ -51,11 +47,7 @@ pub fn uppper_bound<T: Ord>(a: &Vec<T>, x: &T) -> Option<usize> {
             Ordering::Greater => r = m,
         }
     }
-    if l == a.len() {
-        None
-    } else {
-        Some(l)
-    }
+    l
 }
 
 #[snippet = "binary_search_by"]
@@ -89,13 +81,13 @@ fn test_binary_search() {
     assert_eq!(binary_search(&a, &4), Ok(2));
     assert_eq!(binary_search(&a, &5), Err(4));
 
-    assert_eq!(lower_bound(&a, &0), Some(0));
-    assert_eq!(lower_bound(&a, &4), Some(2));
-    assert_eq!(lower_bound(&a, &61), None);
+    assert_eq!(lower_bound(&a, &0), 0);
+    assert_eq!(lower_bound(&a, &4), 2);
+    assert_eq!(lower_bound(&a, &61), 8);
 
-    assert_eq!(uppper_bound(&a, &0), Some(0));
-    assert_eq!(uppper_bound(&a, &4), Some(4));
-    assert_eq!(uppper_bound(&a, &61), None);
+    assert_eq!(uppper_bound(&a, &0), 0);
+    assert_eq!(uppper_bound(&a, &4), 4);
+    assert_eq!(uppper_bound(&a, &61), 8);
 }
 
 #[test]
