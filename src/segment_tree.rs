@@ -25,12 +25,21 @@ pub mod ds {
             }
         }
 
-        pub fn update(&mut self, mut k: usize, x: T) {
+        pub fn alter(&mut self, mut k: usize, x: T) {
             k += self.n - 1;
             self.data[k] = (self.f)(self.data[k], x);
             while k > 0 {
                 k = (k - 1) / 2;
-                self.data[k] = (self.f)(self.data[k], x);
+                self.data[k] = (self.f)(self.data[2 * k + 1], self.data[2 * k + 2]);
+            }
+        }
+
+        pub fn update(&mut self, mut k: usize, x: T) {
+            k += self.n - 1;
+            self.data[k] = x;
+            while k > 0 {
+                k = (k - 1) / 2;
+                self.data[k] = (self.f)(self.data[2 * k + 1], self.data[2 * k + 2]);
             }
         }
 
@@ -77,7 +86,7 @@ fn test_range_sum_random() {
     for _ in 0..1000 {
         let i = rng.gen_range(0, SIZE);
         let v = rng.gen_range(0, 50);
-        seg_tree.update(i, v);
+        seg_tree.alter(i, v);
 
         data[i] += v;
         let l = rng.gen_range(0, SIZE);
@@ -106,7 +115,7 @@ fn test_range_minimum_query_random() {
         let v = rng.gen_range(0, 10000);
         seg_tree.update(i, v);
 
-        data[i] = min(data[i], v);
+        data[i] = v;
         let l = rng.gen_range(0, SIZE);
         let r = rng.gen_range(l, SIZE) + 1;
 
