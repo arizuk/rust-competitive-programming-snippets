@@ -198,5 +198,13 @@
       "}"
     ],
     "description": "Solver structures template"
+  },
+  "new Scanner": {
+    "prefix": "new_scanner",
+    "body": [
+      "let stdin = std::io::stdin();",
+      "let mut sc = Scanner { reader: stdin.lock() };"
+    ],
+    "description": "Create a new scanner"
   }
 }
