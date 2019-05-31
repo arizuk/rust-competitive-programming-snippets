@@ -57,6 +57,28 @@ pub mod ds {
             }
         }
 
+        // 上書きではない場合
+        //
+        // fn propagate(&mut self, k: usize) {
+        //     if let Some(x) = self.lazy[k] {
+        //         if k < self.n - 1 {
+        //             if let Some(y) = self.lazy[k * 2 + 1] {
+        //                 self.lazy[k * 2 + 1] = Some((self.f)(x, y));
+        //             } else {
+        //                 self.lazy[k * 2 + 1] = Some(x);
+        //             }
+
+        //             if let Some(y) = self.lazy[k * 2 + 2] {
+        //                 self.lazy[k * 2 + 2] = Some((self.f)(x, y));
+        //             } else {
+        //                 self.lazy[k * 2 + 2] = Some(x);
+        //             }
+        //         }
+        //         self.data[k] = (self.f)(self.data[k], x);
+        //         self.lazy[k] = None;
+        //     }
+        // }
+
         /// [l, r)
         pub fn query(&mut self, l: usize, r: usize) -> T {
             assert!(l < r);
