@@ -28,7 +28,8 @@ pub mod ds {
         }
 
         pub fn range_update(&mut self, l: usize, r: usize, x: T) {
-            self.do_range_update(l, r, x, 0, 0, self.n);
+            let n = self.n;
+            self.do_range_update(l, r, x, 0, 0, n);
         }
 
         fn do_range_update(&mut self, l: usize, r: usize, x: T, k: usize, a: usize, b: usize) {
@@ -59,7 +60,8 @@ pub mod ds {
         /// [l, r)
         pub fn query(&mut self, l: usize, r: usize) -> T {
             assert!(l < r);
-            self.do_query(l, r, 0, 0, self.n)
+            let n = self.n;
+            self.do_query(l, r, 0, 0, n)
         }
 
         fn do_query(&mut self, l: usize, r: usize, k: usize, a: usize, b: usize) -> T {
