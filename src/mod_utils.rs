@@ -43,8 +43,8 @@ impl ModDivision {
 #[snippet = "mod_pow"]
 // b^p
 pub fn mod_pow(b: usize, p: usize) -> usize {
-    if p == 1 {
-        return b;
+    if p == 0 {
+        return 1;
     }
     let mut ret = mod_pow(b * b % MOD, p / 2) % MOD;
     if p % 2 == 1 {
@@ -65,6 +65,9 @@ mod tests {
 
     #[test]
     fn test_mod_pow() {
+        assert_eq!(mod_pow(2, 0), 1);
+        assert_eq!(mod_pow(2, 1), 2);
+        assert_eq!(mod_pow(2, 2), 4);
         assert_eq!(mod_pow(2, 10), 1024);
         assert_eq!(mod_pow(5, 34), 836844666);
     }
