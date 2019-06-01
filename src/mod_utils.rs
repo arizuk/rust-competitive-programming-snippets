@@ -1,15 +1,15 @@
 const MOD: usize = 1e9 as usize + 7;
 
-#[snippet = "mod_division"]
+#[snippet = "mod_factorial"]
 #[allow(dead_code)]
-pub struct ModDivision {
+pub struct ModFactorial {
     fact: Vec<usize>, // 階乗
     inv: Vec<usize>,  // 逆元
     finv: Vec<usize>, // 階乗の逆元
 }
 
-#[snippet = "mod_division"]
-impl ModDivision {
+#[snippet = "mod_factorial"]
+impl ModFactorial {
     pub fn new(max_value: usize) -> Self {
         let mut fact = vec![0; max_value + 1];
         let mut inv = vec![0; max_value + 1];
@@ -27,7 +27,7 @@ impl ModDivision {
             finv[i] = finv[i - 1] * inv[i] % MOD;
         }
 
-        ModDivision {
+        ModFactorial {
             fact: fact,
             inv: inv,
             finv: finv,
@@ -53,14 +53,19 @@ pub fn mod_pow(b: usize, p: usize) -> usize {
     ret
 }
 
+#[snippet = "mod_pow"]
+pub fn inv(a: usize) -> usize {
+    mod_pow(a, MOD-2)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn test_mod_division() {
-        let div = ModDivision::new(10);
-        assert_eq!(div.combination(5, 2), 10);
+    fn test_mod_factorial() {
+        let mod_fact = ModFactorial::new(10);
+        assert_eq!(mod_fact.combination(5, 2), 10);
     }
 
     #[test]
