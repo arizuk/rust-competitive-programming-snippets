@@ -36,6 +36,17 @@
     ],
     "description": "For loop"
   },
+  "double for loop": {
+    "prefix": "fhw",
+    "body": [
+      "for ${1:i} in ${2:0}..${3:h} {",
+      "    for ${4:j} in ${5:0}..${6:w} {",
+      "        ",
+      "    }",
+      "}"
+    ],
+    "description": "Double for loop"
+  },
   "max3": {
     "prefix": "max3",
     "body": [
