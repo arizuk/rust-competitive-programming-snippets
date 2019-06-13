@@ -18,12 +18,12 @@ pub mod ds {
             }
         }
 
-        // [l, r] l,r: 1-indexed
+        /// [l, r) l,r: 1-indexed
         pub fn range_sum(&self, l: usize, r: usize) -> T {
-            self.sum(r) - self.sum(l - 1)
+            self.sum(r - 1) - self.sum(l - 1)
         }
 
-        // i: 1-indexed but returns 0 if i=0 is given.
+        /// i: 1-indexed but returns 0 if i=0 is given.
         pub fn sum(&self, i: usize) -> T {
             let mut i = i as i64;
             let mut ret = T::default();
@@ -34,7 +34,7 @@ pub mod ds {
             ret
         }
 
-        // i: 1-indexed
+        /// i: 1-indexed
         pub fn add(&mut self, i: usize, value: T) {
             assert!(i > 0);
             let n = self.data.len() as i64;
@@ -58,5 +58,5 @@ fn test() {
     assert_eq!(bit.sum(3), 6);
     assert_eq!(bit.sum(6), 21);
 
-    assert_eq!(bit.range_sum(3, 6), 18);
+    assert_eq!(bit.range_sum(3, 7), 18);
 }

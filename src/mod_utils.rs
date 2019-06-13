@@ -55,7 +55,7 @@ pub fn mod_pow(b: usize, p: usize) -> usize {
 
 #[snippet = "mod_pow"]
 pub fn inv(a: usize) -> usize {
-    mod_pow(a, MOD-2)
+    mod_pow(a, MOD - 2)
 }
 
 #[cfg(test)]
