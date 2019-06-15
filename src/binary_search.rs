@@ -51,13 +51,12 @@ pub fn uppper_bound<T: Ord>(a: &Vec<T>, x: &T) -> usize {
 }
 
 #[snippet = "binary_search_by"]
-// [l, r]
+/// [l, r)
 pub fn binary_search_by<F>(mut l: usize, mut r: usize, f: &F) -> Option<usize>
 where
     F: Fn(usize) -> bool,
 {
     assert!(l <= r);
-    r += 1;
     let r_bound = r;
     while r != l {
         let m = l + (r - l) / 2; // avoid overflow
@@ -96,10 +95,10 @@ fn test_binary_search_by() {
     let ans = binary_search_by(1, 1000, &f);
     assert_eq!(Some(32), ans);
 
-    let ans = binary_search_by(1, 32, &f);
+    let ans = binary_search_by(1, 33, &f);
     assert_eq!(Some(32), ans);
 
-    let ans = binary_search_by(1, 31, &f);
+    let ans = binary_search_by(1, 32, &f);
     assert_eq!(None, ans);
 
     let ans = binary_search_by(32, 100, &f);
