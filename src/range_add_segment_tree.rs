@@ -33,6 +33,7 @@ pub mod ds {
             }
         }
 
+        /// [l, r)
         pub fn range_add(&mut self, l: usize, r: usize, x: T) {
             let n = self.n;
             self.do_range_add(l, r, x, 0, 0, n);

@@ -25,7 +25,7 @@ pub mod ds {
             }
         }
 
-        pub fn alter(&mut self, mut k: usize, x: T) {
+        pub fn update(&mut self, mut k: usize, x: T) {
             k += self.n - 1;
             self.data[k] = (self.f)(self.data[k], x);
             while k > 0 {
@@ -34,7 +34,7 @@ pub mod ds {
             }
         }
 
-        pub fn update(&mut self, mut k: usize, x: T) {
+        pub fn set(&mut self, mut k: usize, x: T) {
             k += self.n - 1;
             self.data[k] = x;
             while k > 0 {
@@ -66,9 +66,9 @@ pub mod ds {
 #[test]
 fn test_segment_tree() {
     let mut seg_tree = ds::SegmentTree::new(3, 0usize, |a, b| a + b);
-    seg_tree.update(0, 1);
-    seg_tree.update(1, 2);
-    seg_tree.update(2, 3);
+    seg_tree.set(0, 1);
+    seg_tree.set(1, 2);
+    seg_tree.set(2, 3);
 
     assert_eq!(seg_tree.query(0, 3), 6);
     assert_eq!(seg_tree.query(2, 3), 3);
@@ -86,7 +86,7 @@ fn test_range_sum_random() {
     for _ in 0..1000 {
         let i = rng.gen_range(0, SIZE);
         let v = rng.gen_range(0, 50);
-        seg_tree.alter(i, v);
+        seg_tree.update(i, v);
 
         data[i] += v;
         let l = rng.gen_range(0, SIZE);
@@ -113,7 +113,7 @@ fn test_range_minimum_query_random() {
     for _ in 0..1000 {
         let i = rng.gen_range(0, SIZE);
         let v = rng.gen_range(0, 10000);
-        seg_tree.update(i, v);
+        seg_tree.set(i, v);
 
         data[i] = v;
         let l = rng.gen_range(0, SIZE);
