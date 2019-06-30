@@ -2,16 +2,25 @@
   "println": {
     "prefix": "puts",
     "body": [
-      "println!(\"{}\", ${1:ans});"
+      "puts!(\"{}\", ${1:ans});"
     ],
     "description": "Println shortcut"
   },
   "print": {
     "prefix": "put",
     "body": [
-      "print!(\"{} \", ${1:ans});"
+      "put!(\"{} \", ${1:ans});"
     ],
     "description": "Print shortcut"
+  },
+  "put macro": {
+    "prefix": "macro_put",
+    "body": [
+      "macro_rules! put {",
+      "  ($(\\$format:tt)*) => (write!(out,$(\\$format)*).unwrap());",
+      "}"
+    ],
+    "description": "Put marco"
   },
   "dump": {
     "prefix": "dump",
