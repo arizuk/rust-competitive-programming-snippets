@@ -16,4 +16,5 @@ pub mod prime;
 pub mod range_add_segment_tree;
 pub mod scanner;
 pub mod segment_tree;
+pub mod sliding_window;
 pub mod union_find;

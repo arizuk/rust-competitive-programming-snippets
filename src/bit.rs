@@ -66,7 +66,7 @@ fn test_size() {
     for size in 1..20 {
         let mut bit = ds::BIT::new(size);
         let mut ans = 0;
-        for i in 1..size+1 {
+        for i in 1..size + 1 {
             bit.add(i, 1);
             ans += 1;
             assert_eq!(bit.sum(i), ans);
@@ -86,13 +86,13 @@ fn test_random() {
     for _ in 0..1000 {
         let i = rng.gen_range(0, SIZE);
         let v = rng.gen_range(0, 50);
-        bit.add(i+1, v);
+        bit.add(i + 1, v);
         data[i] += v;
 
         let l = rng.gen_range(0, SIZE);
         let r = rng.gen_range(l, SIZE) + 1;
 
-        let q1 = bit.range_sum(l+1, r+1);
+        let q1 = bit.range_sum(l + 1, r + 1);
         let q2 = *&data[l..r].iter().sum();
         assert_eq!(q1, q2);
     }
