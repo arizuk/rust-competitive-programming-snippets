@@ -2,14 +2,14 @@
   "println": {
     "prefix": "puts",
     "body": [
-      "puts!(\"{}\", ${1:ans});"
+      "puts!(\"{}\\n\", ${1:ans});"
     ],
     "description": "Println shortcut"
   },
   "print": {
     "prefix": "put",
     "body": [
-      "put!(\"{} \", ${1:ans});"
+      "puts!(\"{} \", ${1:ans});"
     ],
     "description": "Print shortcut"
   },
