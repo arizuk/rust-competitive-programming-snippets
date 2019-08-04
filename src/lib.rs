@@ -6,10 +6,10 @@
 extern crate rand;
 extern crate test;
 
+pub mod arithmetic;
+pub mod binary_indexed_tree;
 pub mod binary_search;
-pub mod bit;
 pub mod combination;
-pub mod gcd;
 pub mod lazy_segment_tree;
 pub mod mod_utils;
 pub mod prime;

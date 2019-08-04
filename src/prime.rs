@@ -1,5 +1,5 @@
-#[snippet = "gen_prime_table"]
-pub fn gen_prime_table(n: u64) -> Vec<bool> {
+#[snippet = "generate_prime_table"]
+pub fn generate_prime_table(n: u64) -> Vec<bool> {
     let mut is_prime = vec![true; n as usize + 1];
     is_prime[0] = false;
     is_prime[1] = false;
@@ -17,9 +17,9 @@ pub fn gen_prime_table(n: u64) -> Vec<bool> {
     is_prime
 }
 
-#[snippet = "gen_primes"]
-pub fn gen_primes(n: u64) -> Vec<u64> {
-    let is_prime = gen_prime_table(n);
+#[snippet = "generate_primes"]
+pub fn generate_primes(n: u64) -> Vec<u64> {
+    let is_prime = generate_prime_table(n);
     let mut primes = vec![];
     for i in 2..n + 1 {
         if is_prime[i as usize] {
@@ -29,16 +29,42 @@ pub fn gen_primes(n: u64) -> Vec<u64> {
     primes
 }
 
+#[snippet = "prime_factorization"]
+pub fn prime_factorization(mut n: usize) -> Vec<(usize, usize)> {
+    let mut i = 2;
+    let mut ans = vec![];
+    while i * i <= n {
+        let mut cnt = 0;
+        while n % i == 0 {
+            n /= i;
+            cnt += 1;
+        }
+        if cnt > 0 {
+            ans.push((i, cnt));
+        }
+        i += 1;
+    }
+    if n > 1 {
+        ans.push((n, 1));
+    }
+    ans
+}
+
 #[test]
-fn test_gen_prime_table() {
+fn test_generate_prime_table() {
     assert_eq!(
-        gen_prime_table(7),
+        generate_prime_table(7),
         vec![false, false, true, true, false, true, false, true]
     );
 }
 
 #[test]
 fn test_gen_primes() {
-    assert_eq!(gen_primes(7), vec![2, 3, 5, 7]);
-    assert_eq!(gen_primes(444777).len(), 37326);
+    assert_eq!(generate_primes(7), vec![2, 3, 5, 7]);
+    assert_eq!(generate_primes(444777).len(), 37326);
+}
+
+#[test]
+fn test_prime_factorization() {
+    assert_eq!(prime_factorization(36), vec![(2, 2), (3, 2)]);
 }
