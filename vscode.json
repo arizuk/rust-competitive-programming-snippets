@@ -226,5 +226,21 @@
       "let mut sc = Scanner { reader: stdin.lock() };"
     ],
     "description": "Create a new scanner"
+  },
+  "binarysearch inline": {
+    "prefix": "binarysearch_inline",
+    "body": [
+      "let mut ok = n;",
+      "let mut ng = 0;",
+      "while ok != ng {",
+      "    let mid = (ok + ng) / 2;",
+      "    if is_ok(mid) {",
+      "        ok = mid;",
+      "    } else {",
+      "        ng = mid + 1;",
+      "    }",
+      "}"
+    ],
+    "description": "binarysearch"
   }
 }
