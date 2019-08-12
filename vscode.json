@@ -242,5 +242,19 @@
       "}"
     ],
     "description": "binarysearch"
+  },
+  "print array": {
+    "prefix": "print_array",
+    "body": [
+      "for i in 0..${1:ans}.len() {",
+        "    if i == ${1:ans}.len() - 1 {",
+        "        puts!(\"{}\", ${1:ans}[i]);",
+        "    } else {",
+        "        puts!(\"{} \", ${1:ans}[i]);",
+        "    }",
+        "}",
+        "puts!(\"\\n\")"
+    ],
+    "description": "print array in a single line"
   }
 }
