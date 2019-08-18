@@ -256,5 +256,19 @@
         "puts!(\"\\n\")"
     ],
     "description": "print array in a single line"
+  },
+  "pair": {
+    "prefix": "pair",
+    "body": [
+        "(${1:usize}, ${1:usize})"
+    ],
+    "description": "length 2 tuple"
+  },
+  "pair3": {
+    "prefix": "pair3",
+    "body": [
+        "(${1:usize}, ${1:usize}, ${1:usize})"
+    ],
+    "description": "length 3 tuple"
   }
 }
