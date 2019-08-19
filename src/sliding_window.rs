@@ -23,7 +23,6 @@ pub mod ds {
 
         pub fn next(&mut self) -> usize {
             let i = self.cur;
-            self.cur += 1;
 
             while self.q.len() > 0 {
                 let j = *self.q.back().unwrap();
@@ -40,6 +39,8 @@ pub mod ds {
             if i >= self.window && j == i - self.window {
                 self.q.pop_front();
             }
+
+            self.cur += 1;
             self.front()
         }
 
@@ -51,7 +52,7 @@ pub mod ds {
 
 #[test]
 fn test_sliding_window_minimum() {
-    let data = [5, 3, 2, 1, 4];
+    let data = [5, 3, 2, 1, 4, 4, 4];
     let f = |a, b| data[a] <= data[b];
     let mut q = ds::SlidingWindowQ::new(3, f);
 
@@ -59,7 +60,7 @@ fn test_sliding_window_minimum() {
     for _ in 0..data.len() {
         ret.push(q.next());
     }
-    assert_eq!(ret, vec![0, 1, 2, 3, 3]);
+    assert_eq!(ret, vec![0, 1, 2, 3, 3, 3, 6]);
 }
 
 #[test]
