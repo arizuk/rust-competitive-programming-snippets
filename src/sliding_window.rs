@@ -30,7 +30,7 @@ pub mod ds {
         pub fn next(&mut self) -> Option<usize> {
             let i = self.cur;
             if i == self.n {
-                return None
+                return None;
             }
 
             while self.q.len() > 0 {

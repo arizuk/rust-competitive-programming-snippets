@@ -6,7 +6,7 @@ pub struct ModFactorial {
     fact: Vec<usize>, // 階乗
     inv: Vec<usize>,  // 逆元
     finv: Vec<usize>, // 階乗の逆元
-    modulo: usize
+    modulo: usize,
 }
 
 #[snippet = "mod_factorial"]
@@ -32,7 +32,7 @@ impl ModFactorial {
             fact: fact,
             inv: inv,
             finv: finv,
-            modulo: modulo
+            modulo: modulo,
         }
     }
 
@@ -44,7 +44,7 @@ impl ModFactorial {
 
 #[snippet = "mod_op"]
 pub struct ModOp {
-    modulo: usize
+    modulo: usize,
 }
 
 #[snippet = "mod_op"]
@@ -70,7 +70,6 @@ impl ModOp {
         self.pow(a, self.modulo - 2)
     }
 }
-
 
 #[snippet = "mod_pow"]
 /// b^power
@@ -110,7 +109,6 @@ mod tests {
         assert_eq!(mod_op.pow(2, 10), 1024);
         assert_eq!(mod_op.pow(5, 34), 836844666);
     }
-
 
     #[test]
     fn test_mod_pow() {

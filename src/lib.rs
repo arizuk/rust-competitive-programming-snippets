@@ -9,6 +9,7 @@ extern crate test;
 pub mod arithmetic;
 pub mod binary_indexed_tree;
 pub mod binary_search;
+pub mod code_templates;
 pub mod combination;
 pub mod lazy_segment_tree;
 pub mod mod_utils;
