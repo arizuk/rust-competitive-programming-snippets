@@ -1,6 +1,7 @@
 #[snippet = "sliding_window"]
 pub mod ds {
     use std::collections::VecDeque;
+
     pub struct SlidingWindowQ<F> {
         q: VecDeque<usize>,
         window: usize,
@@ -12,6 +13,16 @@ pub mod ds {
     where
         F: Fn(usize, usize) -> bool,
     {
+        /// # Example
+        ///
+        /// ```
+        /// use sliding_window::ds::SlidingWindowQ;
+        /// let data = vec![3, 2, 1];
+        /// let f = |a, b| data[a] <= data[b];
+        /// let mut q = SlidingWindowQ::new(3, f);
+        /// q.next()
+        /// ```
+        ///
         pub fn new(window: usize, f: F) -> Self {
             SlidingWindowQ {
                 q: VecDeque::new(),
