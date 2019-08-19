@@ -270,5 +270,26 @@
         "(${1:usize}, ${1:usize}, ${1:usize})"
     ],
     "description": "length 3 tuple"
+  },
+  "new_graph": {
+    "prefix": "new_graph",
+    "body": [
+      "let mut edges = vec![vec![]; n];",
+      "for (a, b) in abs {",
+      "    edges[a].push(b);",
+      "    edges[b].push(a);",
+      "}",
+      "let g = Graph {",
+      "        n: n,",
+      "        edges: edges",
+      "    };",
+      "",
+      "let mut seen = vec![false; n];",
+      "let mut state = DFSState {",
+      "        seen: seen",
+      "    };",
+      "g.dfs(0, n, &mut state);"
+    ],
+    "description": "new Graph"
   }
 }
