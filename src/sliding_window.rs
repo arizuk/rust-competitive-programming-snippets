@@ -14,18 +14,9 @@ pub mod ds {
     where
         F: Fn(usize, usize) -> bool,
     {
-        /// # Example
-        ///
+        /// ```ignore
+        /// let mut q = SlidingWindowQ::new(3, 2, |a, b| f(a) <= f(b));
         /// ```
-        /// use snippets::sliding_window::ds::SlidingWindowQ;
-        /// let data = vec![2, 3, 1];
-        /// let f = |a, b| data[a] <= data[b];
-        /// let mut q = SlidingWindowQ::new(3, 2, f);
-        /// assert_eq!(q.next(), Some(0));
-        /// assert_eq!(q.next(), Some(0));
-        /// assert_eq!(q.next(), Some(2));
-        /// ```
-        ///
         pub fn new(n: usize, window: usize, f: F) -> Self {
             SlidingWindowQ {
                 n: n,
