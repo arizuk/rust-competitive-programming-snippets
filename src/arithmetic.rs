@@ -1,5 +1,5 @@
 #[snippet = "get_divisors"]
-pub fn get_divisors(n: usize) -> Vec<usize> {
+pub fn get_divisors(n: u64) -> Vec<u64> {
     let mut m = 1;
     let mut divs = vec![];
     while m * m <= n {
