@@ -19,3 +19,4 @@ pub mod scanner;
 pub mod segment_tree;
 pub mod sliding_window;
 pub mod union_find;
+pub mod utils;
