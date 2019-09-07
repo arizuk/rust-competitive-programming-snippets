@@ -34,12 +34,12 @@ pub mod ds {
         }
 
         /// [l, r)
-        pub fn range_add(&mut self, l: usize, r: usize, x: T) {
+        pub fn add_between(&mut self, l: usize, r: usize, x: T) {
             let n = self.n;
-            self.do_range_add(l, r, x, 0, 0, n);
+            self.do_add_between(l, r, x, 0, 0, n);
         }
 
-        fn do_range_add(&mut self, l: usize, r: usize, x: T, k: usize, a: usize, b: usize) {
+        fn do_add_between(&mut self, l: usize, r: usize, x: T, k: usize, a: usize, b: usize) {
             self.propagate(k);
             if b <= l || r <= a {
                 // noop
@@ -47,8 +47,8 @@ pub mod ds {
                 self.lazy[k] += x * T::from((b - a) as u64);
                 self.propagate(k);
             } else {
-                self.do_range_add(l, r, x, k * 2 + 1, a, (a + b) / 2);
-                self.do_range_add(l, r, x, k * 2 + 2, (a + b) / 2, b);
+                self.do_add_between(l, r, x, k * 2 + 1, a, (a + b) / 2);
+                self.do_add_between(l, r, x, k * 2 + 2, (a + b) / 2, b);
                 self.data[k] = self.data[k * 2 + 1] + self.data[k * 2 + 2];
             }
         }
@@ -91,12 +91,12 @@ pub mod ds {
 #[test]
 fn test_segment_tree() {
     let mut seg_tree = ds::RangeAddSegmentTree::new(8, 0u64);
-    seg_tree.range_add(0, 4, 5);
+    seg_tree.add_between(0, 4, 5);
     assert_eq!(seg_tree.query(0, 4), 20);
     assert_eq!(seg_tree.query(2, 4), 10);
     assert_eq!(seg_tree.query(3, 4), 5);
 
-    seg_tree.range_add(3, 5, 1);
+    seg_tree.add_between(3, 5, 1);
     assert_eq!(seg_tree.query(0, 4), 21);
     assert_eq!(seg_tree.query(2, 8), 12);
 }
@@ -114,7 +114,7 @@ fn test_random() {
         let l = rng.gen_range(0, SIZE);
         let r = rng.gen_range(l, SIZE) + 1;
         let v = rng.gen_range(0, 50);
-        seg_tree.range_add(l, r, v);
+        seg_tree.add_between(l, r, v);
         for i in l..r {
             data[i] += v;
         }

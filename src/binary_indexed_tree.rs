@@ -19,7 +19,7 @@ pub mod ds {
         }
 
         /// [l, r) l,r: 1-indexed
-        pub fn range_sum(&self, l: usize, r: usize) -> T {
+        pub fn sum_between(&self, l: usize, r: usize) -> T {
             self.sum(r - 1) - self.sum(l - 1)
         }
 
@@ -58,7 +58,7 @@ fn test() {
     assert_eq!(bit.sum(3), 6);
     assert_eq!(bit.sum(6), 21);
 
-    assert_eq!(bit.range_sum(3, 7), 18);
+    assert_eq!(bit.sum_between(3, 7), 18);
 }
 
 #[test]
@@ -92,7 +92,7 @@ fn test_random() {
         let l = rng.gen_range(0, SIZE);
         let r = rng.gen_range(l, SIZE) + 1;
 
-        let q1 = bit.range_sum(l + 1, r + 1);
+        let q1 = bit.sum_between(l + 1, r + 1);
         let q2 = *&data[l..r].iter().sum();
         assert_eq!(q1, q2);
     }

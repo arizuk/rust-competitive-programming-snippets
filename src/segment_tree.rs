@@ -75,7 +75,7 @@ fn test_segment_tree() {
 }
 
 #[test]
-fn test_range_sum_random() {
+fn test_sum_between_random() {
     use rand::Rng;
     let mut rng = rand::thread_rng();
 
