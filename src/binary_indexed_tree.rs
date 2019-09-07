@@ -1,19 +1,22 @@
 #[snippet = "binary_indexed_tree"]
 pub mod ds {
+    use std::cmp::PartialOrd;
     use std::ops::{AddAssign, Sub};
 
     #[derive(Debug)]
     pub struct BIT<T> {
+        size: usize,
         data: Vec<T>,
     }
 
     impl<T> BIT<T>
     where
-        T: Copy + AddAssign + Sub<Output = T> + Default,
+        T: Copy + AddAssign + Sub<Output = T> + Default + PartialOrd,
     {
         pub fn new(size: usize) -> Self {
             let buf_size = size.next_power_of_two();
             BIT {
+                size: size,
                 data: vec![T::default(); buf_size + 1],
             }
         }
@@ -43,6 +46,20 @@ pub mod ds {
                 self.data[i as usize] += value;
                 i += i & -i; // Add a last bit with 1
             }
+        }
+
+        pub fn lower_bound(&self, value: T) -> usize {
+            let mut r = self.size + 1;
+            let mut l = 1;
+            while r != l {
+                let mid = (r + l) / 2;
+                if self.sum(mid) >= value {
+                    r = mid;
+                } else {
+                    l = mid + 1;
+                }
+            }
+            r
         }
     }
 }
@@ -96,4 +113,18 @@ fn test_random() {
         let q2 = *&data[l..r].iter().sum();
         assert_eq!(q1, q2);
     }
+}
+
+#[test]
+fn test_lower_bound() {
+    let mut bit = ds::BIT::new(8);
+    for i in 1..9 {
+        bit.add(i, 1);
+    }
+
+    assert_eq!(bit.lower_bound(0), 1);
+    assert_eq!(bit.lower_bound(1), 1);
+    assert_eq!(bit.lower_bound(5), 5);
+    assert_eq!(bit.lower_bound(8), 8);
+    assert_eq!(bit.lower_bound(9), 9);
 }
