@@ -1,7 +1,8 @@
 #[snippet = "binary_indexed_tree"]
 pub mod ds {
-    use std::cmp::PartialOrd;
+    use std::cmp::{min, PartialOrd};
     use std::ops::{AddAssign, Sub};
+    use std::fmt::Display;
 
     #[derive(Debug)]
     pub struct BIT<T> {
@@ -11,13 +12,13 @@ pub mod ds {
 
     impl<T> BIT<T>
     where
-        T: Copy + AddAssign + Sub<Output = T> + Default + PartialOrd,
+        T: Copy + AddAssign + Sub<Output = T> + PartialOrd + From<usize> + Display
     {
         pub fn new(size: usize) -> Self {
             let buf_size = size.next_power_of_two();
             BIT {
                 size: size,
-                data: vec![T::default(); buf_size + 1],
+                data: vec![T::from(0 as usize); buf_size + 1],
             }
         }
 
@@ -29,7 +30,7 @@ pub mod ds {
         /// i: 1-indexed but returns 0 if i=0 is given.
         pub fn sum(&self, i: usize) -> T {
             let mut i = i as i64;
-            let mut ret = T::default();
+            let mut ret = T::from(0 as usize);
             while i > 0 {
                 ret += self.data[i as usize];
                 i -= i & -i;
@@ -39,7 +40,7 @@ pub mod ds {
 
         /// i: 1-indexed
         pub fn add(&mut self, i: usize, value: T) {
-            assert!(i > 0);
+            assert!(i > 0 && i <= self.size);
             let n = self.data.len() as i64;
             let mut i = i as i64;
             while i <= n - 1 {
@@ -48,18 +49,25 @@ pub mod ds {
             }
         }
 
-        pub fn lower_bound(&self, value: T) -> usize {
-            let mut r = self.size + 1;
-            let mut l = 1;
-            while r != l {
-                let mid = (r + l) / 2;
-                if self.sum(mid) >= value {
-                    r = mid;
-                } else {
-                    l = mid + 1;
-                }
+        pub fn lower_bound(&self, mut value: T) -> usize {
+            let zero = T::from(0usize);
+            if value <= zero {
+                return 0;
             }
-            r
+
+            let n = self.data.len();
+            let mut x = 0;
+            let mut k = n - 1;
+            while k > 0 {
+                if x + k <= n - 1 && self.data[x + k] < value {
+                    value = value - self.data[x + k];
+                    x += k;
+                }
+                k /= 2;
+            }
+
+            x = min(x, self.size);
+            x + 1
         }
     }
 }
@@ -117,14 +125,30 @@ fn test_random() {
 
 #[test]
 fn test_lower_bound() {
-    let mut bit = ds::BIT::new(8);
-    for i in 1..9 {
-        bit.add(i, 1);
+    {
+        let mut bit = ds::BIT::new(8);
+        for i in 1..8 + 1 {
+            bit.add(i, i);
+        }
+        assert_eq!(bit.lower_bound(0), 0);
+        assert_eq!(bit.lower_bound(1), 1);
+        assert_eq!(bit.lower_bound(6), 3);
+        assert_eq!(bit.lower_bound(7), 4);
+        assert_eq!(bit.lower_bound(8), 4);
+        assert_eq!(bit.lower_bound(9), 4);
+        assert_eq!(bit.lower_bound(10), 4);
+        assert_eq!(bit.lower_bound(15), 5);
+        assert_eq!(bit.lower_bound(36), 8);
+        assert_eq!(bit.lower_bound(37), 9);
     }
 
-    assert_eq!(bit.lower_bound(0), 1);
-    assert_eq!(bit.lower_bound(1), 1);
-    assert_eq!(bit.lower_bound(5), 5);
-    assert_eq!(bit.lower_bound(8), 8);
-    assert_eq!(bit.lower_bound(9), 9);
+    {
+        let mut bit = ds::BIT::new(6);
+        for i in 1..6 + 1 {
+            bit.add(i, 1);
+        }
+        assert_eq!(bit.lower_bound(1), 1);
+        assert_eq!(bit.lower_bound(6), 6);
+        assert_eq!(bit.lower_bound(7), 7);
+    }
 }
