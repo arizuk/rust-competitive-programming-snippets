@@ -2,7 +2,6 @@
 pub mod ds {
     use std::cmp::{min, PartialOrd};
     use std::ops::{AddAssign, Sub};
-    use std::fmt::Display;
 
     #[derive(Debug)]
     pub struct BIT<T> {
@@ -12,7 +11,7 @@ pub mod ds {
 
     impl<T> BIT<T>
     where
-        T: Copy + AddAssign + Sub<Output = T> + PartialOrd + From<usize> + Display
+        T: Copy + AddAssign + Sub<Output = T> + PartialOrd + From<usize>,
     {
         pub fn new(size: usize) -> Self {
             let buf_size = size.next_power_of_two();
