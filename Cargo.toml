@@ -4,5 +4,5 @@ version = "0.1.0"
 authors = ["masaki.arizuka <masaki.arizuka@gmail.com>"]
 
 [dependencies]
-cargo-snippet = "0.2"
+cargo-snippet = "0.3"
 rand = "0.7"
