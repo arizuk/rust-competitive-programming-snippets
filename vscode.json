@@ -230,14 +230,14 @@
   "binarysearch inline": {
     "prefix": "binarysearch_inline",
     "body": [
-      "let mut ok = n;",
-      "let mut ng = 0;",
-      "while ok != ng {",
+      "let mut ok = n as isize;",
+      "let mut ng = -1;",
+      "while ok-ng > 1 {",
       "    let mid = (ok + ng) / 2;",
-      "    if is_ok(mid) {",
+      "    if is_ok(mid as usize) {",
       "        ok = mid;",
       "    } else {",
-      "        ng = mid + 1;",
+      "        ng = mid;",
       "    }",
       "}"
     ],
