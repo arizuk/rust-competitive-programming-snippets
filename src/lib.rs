@@ -15,6 +15,7 @@ pub mod lazy_segment_tree;
 pub mod mod_utils;
 pub mod prime;
 pub mod range_add_segment_tree;
+pub mod rolling_hash;
 pub mod scanner;
 pub mod segment_tree;
 pub mod sliding_window;
