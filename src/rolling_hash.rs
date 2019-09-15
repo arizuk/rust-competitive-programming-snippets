@@ -57,10 +57,7 @@ fn test_rolling_hash() {
             if i + j > n {
                 break;
             }
-            let hash = (
-                rh1.get(i, i + j),
-                rh2.get(i, i + j)
-            );
+            let hash = (rh1.get(i, i + j), rh2.get(i, i + j));
             if seen.contains_key(&hash) {
                 assert_eq!(seen[&hash], &chars[i..i + j]);
             } else {
