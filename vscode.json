@@ -232,7 +232,7 @@
     "body": [
       "let mut ok = n as i64;",
       "let mut ng = -1;",
-      "while ok-ng > 1 {",
+      "while (ok-ng).abs() > 1 {",
       "    let mid = (ok + ng) / 2;",
       "    if is_ok(mid as usize) {",
       "        ok = mid;",
