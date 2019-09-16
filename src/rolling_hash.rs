@@ -5,6 +5,7 @@ pub struct RollingHash {
     hash: Vec<u64>,
 }
 
+#[snippet = "rolling_hash"]
 impl RollingHash {
     pub fn create_recommended_pair(s: &[u8]) -> (Self, Self) {
         (
