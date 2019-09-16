@@ -1,4 +1,23 @@
 #[snippet = "rolling_hash"]
+pub struct RollingHash2 {
+    rh1: RollingHash,
+    rh2: RollingHash,
+}
+
+#[snippet = "rolling_hash"]
+impl RollingHash2 {
+    pub fn new(s: &[u8]) -> Self {
+        let rh1 = RollingHash::new(s, 1007, 1000000009);
+        let rh2 = RollingHash::new(s, 1009, 1000000007);
+        RollingHash2 { rh1: rh1, rh2: rh2 }
+    }
+
+    pub fn get(&self, l: usize, r: usize) -> (u64, u64) {
+        (self.rh1.get(l, r), self.rh2.get(l, r))
+    }
+}
+
+#[snippet = "rolling_hash"]
 pub struct RollingHash {
     modulo: u64,
     power: Vec<u64>,
@@ -7,13 +26,6 @@ pub struct RollingHash {
 
 #[snippet = "rolling_hash"]
 impl RollingHash {
-    pub fn create_recommended_pair(s: &[u8]) -> (Self, Self) {
-        (
-            RollingHash::new(s, 1009, 1000000007),
-            RollingHash::new(s, 1007, 1000000009),
-        )
-    }
-
     pub fn new(s: &[u8], base: u64, modulo: u64) -> Self {
         let n = s.len();
 
@@ -43,26 +55,28 @@ fn test_rolling_hash() {
     use std::collections::HashMap;
     let mut rng = rand::thread_rng();
 
-    let mut chars = vec![];
-    for _ in 0..100 {
-        chars.push((rng.gen_range(0, 26) as u8 + 'a' as u8) as char);
-    }
+    for _ in 0..10 {
+        let mut chars = vec![];
+        for _ in 0..100 {
+            chars.push((rng.gen_range(0, 26) as u8 + 'a' as u8) as char);
+        }
 
-    let string = chars.iter().collect::<String>();
-    let n = string.len();
+        let string = chars.iter().collect::<String>();
+        let n = string.len();
 
-    let (rh1, rh2) = RollingHash::create_recommended_pair(string.as_bytes());
-    let mut seen = HashMap::new();
-    for i in 0..n {
-        for j in 1..n + 1 {
-            if i + j > n {
-                break;
-            }
-            let hash = (rh1.get(i, i + j), rh2.get(i, i + j));
-            if seen.contains_key(&hash) {
-                assert_eq!(seen[&hash], &chars[i..i + j]);
-            } else {
-                seen.insert(hash, &chars[i..i + j]);
+        let rh = RollingHash2::new(string.as_bytes());
+        let mut seen = HashMap::new();
+        for i in 0..n {
+            for len in 1..n + 1 {
+                if i + len > n {
+                    break;
+                }
+                let hash = rh.get(i, i + len);
+                if seen.contains_key(&hash) {
+                    assert_eq!(seen[&hash], &chars[i..i + len]);
+                } else {
+                    seen.insert(hash, &chars[i..i + len]);
+                }
             }
         }
     }

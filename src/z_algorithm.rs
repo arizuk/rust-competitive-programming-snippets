@@ -1,5 +1,5 @@
 #[snippet = "z_algorithm"]
-fn z_algorithm(s: &[char]) -> Vec<usize> {
+pub fn z_algorithm(s: &[char]) -> Vec<usize> {
     let n = s.len();
     let mut prefix = vec![0; n];
     prefix[0] = n;
