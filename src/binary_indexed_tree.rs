@@ -11,13 +11,13 @@ pub mod ds {
 
     impl<T> BIT<T>
     where
-        T: Copy + AddAssign + Sub<Output = T> + PartialOrd + From<usize>,
+        T: Copy + AddAssign + Sub<Output = T> + PartialOrd + From<u16>,
     {
         pub fn new(size: usize) -> Self {
             let buf_size = size.next_power_of_two();
             BIT {
                 size: size,
-                data: vec![T::from(0 as usize); buf_size + 1],
+                data: vec![T::from(0u16); buf_size + 1],
             }
         }
 
@@ -29,7 +29,7 @@ pub mod ds {
         /// i: 1-indexed but returns 0 if i=0 is given.
         pub fn sum(&self, i: usize) -> T {
             let mut i = i as i64;
-            let mut ret = T::from(0 as usize);
+            let mut ret = T::from(0u16);
             while i > 0 {
                 ret += self.data[i as usize];
                 i -= i & -i;
@@ -49,7 +49,7 @@ pub mod ds {
         }
 
         pub fn lower_bound(&self, mut value: T) -> usize {
-            let zero = T::from(0usize);
+            let zero = T::from(0u16);
             if value <= zero {
                 return 0;
             }
@@ -71,83 +71,97 @@ pub mod ds {
     }
 }
 
-#[test]
-fn test() {
-    let a = [1, 2, 3, 4, 5, 6];
-    let mut bit = ds::BIT::new(a.len());
-    for i in 0..a.len() {
-        bit.add(i + 1, a[i]);
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test() {
+        let a = [1, 2, 3, 4, 5, 6];
+        let mut bit = ds::BIT::new(a.len());
+        for i in 0..a.len() {
+            bit.add(i + 1, a[i]);
+        }
+        assert_eq!(bit.sum(1), 1);
+        assert_eq!(bit.sum(3), 6);
+        assert_eq!(bit.sum(6), 21);
+
+        assert_eq!(bit.sum_between(3, 7), 18);
     }
-    assert_eq!(bit.sum(1), 1);
-    assert_eq!(bit.sum(3), 6);
-    assert_eq!(bit.sum(6), 21);
 
-    assert_eq!(bit.sum_between(3, 7), 18);
-}
-
-#[test]
-fn test_size() {
-    for size in 1..20 {
-        let mut bit = ds::BIT::new(size);
-        let mut ans = 0;
-        for i in 1..size + 1 {
-            bit.add(i, 1);
-            ans += 1;
-            assert_eq!(bit.sum(i), ans);
+    #[test]
+    fn test_size() {
+        for size in 1..20 {
+            let mut bit = ds::BIT::new(size);
+            let mut ans = 0;
+            for i in 1..size + 1 {
+                bit.add(i, 1);
+                ans += 1;
+                assert_eq!(bit.sum(i), ans);
+            }
         }
     }
-}
 
-#[test]
-fn test_random() {
-    use rand::Rng;
-    let mut rng = rand::thread_rng();
+    #[test]
+    fn test_random() {
+        use rand::Rng;
+        let mut rng = rand::thread_rng();
 
-    const SIZE: usize = 100;
-    let mut bit = ds::BIT::new(SIZE);
-    let mut data = vec![0; SIZE];
+        const SIZE: usize = 100;
+        let mut bit = ds::BIT::new(SIZE);
+        let mut data = vec![0; SIZE];
 
-    for _ in 0..1000 {
-        let i = rng.gen_range(0, SIZE);
-        let v = rng.gen_range(0, 50);
-        bit.add(i + 1, v);
-        data[i] += v;
+        for _ in 0..1000 {
+            let i = rng.gen_range(0, SIZE);
+            let v = rng.gen_range(0, 50);
+            bit.add(i + 1, v);
+            data[i] += v;
 
-        let l = rng.gen_range(0, SIZE);
-        let r = rng.gen_range(l, SIZE) + 1;
+            let l = rng.gen_range(0, SIZE);
+            let r = rng.gen_range(l, SIZE) + 1;
 
-        let q1 = bit.sum_between(l + 1, r + 1);
-        let q2 = *&data[l..r].iter().sum();
-        assert_eq!(q1, q2);
-    }
-}
-
-#[test]
-fn test_lower_bound() {
-    {
-        let mut bit = ds::BIT::new(8);
-        for i in 1..8 + 1 {
-            bit.add(i, i);
+            let q1 = bit.sum_between(l + 1, r + 1);
+            let q2 = *&data[l..r].iter().sum();
+            assert_eq!(q1, q2);
         }
-        assert_eq!(bit.lower_bound(0), 0);
-        assert_eq!(bit.lower_bound(1), 1);
-        assert_eq!(bit.lower_bound(6), 3);
-        assert_eq!(bit.lower_bound(7), 4);
-        assert_eq!(bit.lower_bound(8), 4);
-        assert_eq!(bit.lower_bound(9), 4);
-        assert_eq!(bit.lower_bound(10), 4);
-        assert_eq!(bit.lower_bound(15), 5);
-        assert_eq!(bit.lower_bound(36), 8);
-        assert_eq!(bit.lower_bound(37), 9);
     }
 
-    {
-        let mut bit = ds::BIT::new(6);
-        for i in 1..6 + 1 {
-            bit.add(i, 1);
+    #[test]
+    fn test_lower_bound() {
+        {
+            let mut bit = ds::BIT::new(8);
+            for i in 1..8 + 1 {
+                bit.add(i, i);
+            }
+            assert_eq!(bit.lower_bound(0), 0);
+            assert_eq!(bit.lower_bound(1), 1);
+            assert_eq!(bit.lower_bound(6), 3);
+            assert_eq!(bit.lower_bound(7), 4);
+            assert_eq!(bit.lower_bound(8), 4);
+            assert_eq!(bit.lower_bound(9), 4);
+            assert_eq!(bit.lower_bound(10), 4);
+            assert_eq!(bit.lower_bound(15), 5);
+            assert_eq!(bit.lower_bound(36), 8);
+            assert_eq!(bit.lower_bound(37), 9);
         }
-        assert_eq!(bit.lower_bound(1), 1);
-        assert_eq!(bit.lower_bound(6), 6);
-        assert_eq!(bit.lower_bound(7), 7);
+
+        {
+            let mut bit = ds::BIT::new(6);
+            for i in 1..6 + 1 {
+                bit.add(i, 1);
+            }
+            assert_eq!(bit.lower_bound(1), 1);
+            assert_eq!(bit.lower_bound(6), 6);
+            assert_eq!(bit.lower_bound(7), 7);
+        }
+    }
+
+    #[test]
+    fn test_minus() {
+        let mut bit = ds::BIT::new(3);
+        bit.add(1, 1i64);
+        bit.add(1, -1);
+        bit.add(1, -1);
+        assert_eq!(bit.sum(3), -1);
     }
 }
