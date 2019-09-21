@@ -27,6 +27,7 @@ pub mod ds {
             }
         }
 
+        /// Returns the index of the window's front element
         pub fn next(&mut self) -> Option<usize> {
             let i = self.cur;
             if i == self.n {
