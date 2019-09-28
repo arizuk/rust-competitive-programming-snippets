@@ -291,5 +291,13 @@
       "g.dfs(0, n, &mut state);"
     ],
     "description": "new Graph"
+  },
+  "Get most siginificant bit": {
+    "prefix": "most_siginificant_bit",
+    "body": [
+      "// k & (1 << msb) > 0",
+      "let msb = 64 - k.leading_zeros() - 1;"
+    ],
+    "description": "Get most significant bit"
   }
 }
