@@ -22,7 +22,8 @@ pub mod dijkstra {
         }
     }
 
-    pub fn shortest_path(n: usize, edges: &Vec<Vec<(usize, Dist)>>, s: usize) -> Vec<Dist> {
+    pub fn shortest_path(edges: &Vec<Vec<(usize, Dist)>>, s: usize) -> Vec<Dist> {
+        let n = edges.len();
         let mut dist = vec![INF; n];
         let mut heap = BinaryHeap::new();
         heap.push((Rev(0), s));
@@ -77,7 +78,7 @@ mod test {
             edges[s].push((t, d));
         }
 
-        let dist = dijkstra::shortest_path(v, &edges, r);
+        let dist = dijkstra::shortest_path(&edges, r);
         assert_eq!(dist, [0, 1, 3, 4]);
     }
 
@@ -110,7 +111,7 @@ mod test {
             edges[s].push((t, d));
         }
 
-        let dist = dijkstra::shortest_path(v, &edges, r);
+        let dist = dijkstra::shortest_path(&edges, r);
         assert_eq!(dist, [3, 0, 2, dijkstra::INF]);
     }
 }
