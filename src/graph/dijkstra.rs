@@ -25,18 +25,18 @@ pub mod dijkstra {
     pub fn shortest_path(edges: &Vec<Vec<(usize, Dist)>>, s: usize) -> Vec<Dist> {
         let n = edges.len();
         let mut dist = vec![INF; n];
+        dist[s] = 0;
         let mut heap = BinaryHeap::new();
         heap.push((Rev(0), s));
 
         while let Some((Rev(cur_dist), cur)) = heap.pop() {
-            if cur_dist >= dist[cur] {
+            if dist[cur] < cur_dist {
                 continue;
             }
-            dist[cur] = cur_dist;
-
             for &(adj, adj_dist) in edges[cur].iter() {
                 if cur_dist + adj_dist < dist[adj] {
-                    heap.push((Rev(cur_dist + adj_dist), adj));
+                    dist[adj] = cur_dist + adj_dist;
+                    heap.push((Rev(dist[adj]), adj));
                 }
             }
         }
