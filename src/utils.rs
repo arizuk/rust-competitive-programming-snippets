@@ -1,3 +1,4 @@
+#[snippet = "next_positions"]
 pub fn next_positions(x: usize, y: usize, h: usize, w: usize) -> Vec<(usize, usize)> {
     let moves = vec![(0, 1), (0, -1), (1, 0), (-1, 0)];
     let mut pos = vec![];
