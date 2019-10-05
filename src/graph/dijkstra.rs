@@ -51,18 +51,12 @@ mod test {
     use std::io::BufReader;
     // https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_A
 
-    #[test]
-    fn test_grl_1_a_1() {
-        let input = "
-        4 5 0
-        0 1 1
-        0 2 4
-        1 2 2
-        2 3 1
-        1 3 5
-        "
-        .to_string();
+    struct Problem {
+        r: usize,
+        edges: Vec<Vec<(usize,i64)>>
+    }
 
+    fn new_problem(input: String) -> Problem {
         let r = BufReader::new(input.as_bytes());
         let mut sc = Scanner { reader: r };
 
@@ -77,8 +71,22 @@ mod test {
             let d: i64 = sc.read();
             edges[s].push((t, d));
         }
+        Problem { r, edges }
+    }
 
-        let dist = dijkstra::shortest_path(&edges, r);
+    #[test]
+    fn test_grl_1_a_1() {
+        let input = "
+        4 5 0
+        0 1 1
+        0 2 4
+        1 2 2
+        2 3 1
+        1 3 5
+        "
+        .to_string();
+        let prob = new_problem(input);
+        let dist = dijkstra::shortest_path(&prob.edges, prob.r);
         assert_eq!(dist, [0, 1, 3, 4]);
     }
 
@@ -94,24 +102,8 @@ mod test {
         3 2 5
         "
         .to_string();
-
-        let r = BufReader::new(input.as_bytes());
-        let mut sc = Scanner { reader: r };
-
-        let v: usize = sc.read();
-        let e: usize = sc.read();
-        let r: usize = sc.read();
-
-        let mut edges = vec![vec![]; v];
-        for _ in 0..e {
-            let s: usize = sc.read();
-            let t: usize = sc.read();
-            let d: i64 = sc.read();
-
-            edges[s].push((t, d));
-        }
-
-        let dist = dijkstra::shortest_path(&edges, r);
+        let prob = new_problem(input);
+        let dist = dijkstra::shortest_path(&prob.edges, prob.r);
         assert_eq!(dist, [3, 0, 2, dijkstra::INF]);
     }
 }
