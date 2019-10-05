@@ -1,5 +1,5 @@
 #[snippet = "graph_shortest_path"]
-#[snippet = "graph_dijkstra"]
+#[snippet = "dijkstra"]
 pub mod dijkstra {
     use std::cmp::Ordering;
     use std::collections::BinaryHeap;

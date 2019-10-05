@@ -1,6 +1,5 @@
 #[snippet = "graph_dfs"]
 #[snippet = "graph_bfs"]
-#[snippet = "graph_topological_sort"]
 #[derive(Debug)]
 pub struct Graph {
     n: usize,
@@ -45,41 +44,6 @@ impl Graph {
     }
 }
 
-#[snippet = "graph_topological_sort"]
-impl Graph {
-    pub fn topological_sort(&self) -> Vec<usize> {
-        let n = self.n;
-        let edges = &self.edges;
-
-        let mut h = vec![0; n];
-        for i in 0..n {
-            for &t in edges[i].iter() {
-                h[t] += 1;
-            }
-        }
-
-        use std::collections::VecDeque;
-        let mut st = VecDeque::new();
-        for i in 0..n {
-            if h[i] == 0 {
-                st.push_back(i);
-            }
-        }
-
-        let mut sorted = vec![];
-        while let Some(i) = st.pop_front() {
-            sorted.push(i);
-            for &t in edges[i].iter() {
-                h[t] -= 1;
-                if h[t] == 0 {
-                    st.push_back(t);
-                }
-            }
-        }
-        sorted
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -105,16 +69,5 @@ mod tests {
         };
         let dist = g.bfs(0);
         assert_eq!(dist, [0, 1, 1, 2]);
-    }
-
-    #[test]
-    fn test_topological_sort() {
-        let n = 5;
-        let g = Graph {
-            n: n,
-            edges: vec![vec![1, 2], vec![3], vec![4], vec![4], vec![]],
-        };
-        let ans = g.topological_sort();
-        assert_eq!(ans, [0, 1, 2, 3, 4]);
     }
 }
