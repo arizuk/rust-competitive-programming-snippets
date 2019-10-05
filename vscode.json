@@ -282,13 +282,7 @@
       "let g = Graph {",
       "        n: n,",
       "        edges: edges",
-      "    };",
-      "",
-      "let mut seen = vec![false; n];",
-      "let mut state = DFSState {",
-      "        seen: seen",
-      "    };",
-      "g.dfs(0, n, &mut state);"
+      "    };"
     ],
     "description": "new Graph"
   },

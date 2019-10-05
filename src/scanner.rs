@@ -3,7 +3,7 @@
 
 #[snippet = "scanner"]
 pub struct Scanner<R> {
-    reader: R,
+    pub reader: R,
 }
 
 #[snippet = "scanner"]

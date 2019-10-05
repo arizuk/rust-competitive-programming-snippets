@@ -8,19 +8,13 @@ pub struct Graph {
 }
 
 #[snippet = "graph_dfs"]
-#[derive(Debug)]
-pub struct DFSState {
-    seen: Vec<bool>,
-}
-
-#[snippet = "graph_dfs"]
 impl Graph {
-    pub fn dfs(&self, cur: usize, from: usize, state: &mut DFSState) {
+    pub fn dfs(&self, cur: usize, from: usize, seen: &mut Vec<bool>) {
         if self.n == from {}
-        state.seen[cur] = true;
+        seen[cur] = true;
         for &to in self.edges[cur].iter() {
             if to != from {
-                self.dfs(to, cur, state);
+                self.dfs(to, cur, seen);
             }
         }
     }
@@ -97,11 +91,9 @@ mod tests {
             n: n,
             edges: vec![vec![1, 2], vec![2], vec![], vec![]],
         };
-        let mut state = DFSState {
-            seen: vec![false; n],
-        };
-        g.dfs(0, n, &mut state);
-        assert_eq!(state.seen, [true, true, true, false]);
+        let mut seen = vec![false; n];
+        g.dfs(0, n, &mut seen);
+        assert_eq!(seen, [true, true, true, false]);
     }
 
     #[test]

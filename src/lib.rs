@@ -11,6 +11,7 @@ pub mod binary_indexed_tree;
 pub mod binary_search;
 pub mod code_templates;
 pub mod combination;
+pub mod dijkstra;
 pub mod lazy_segment_tree;
 pub mod mod_utils;
 pub mod prime;
