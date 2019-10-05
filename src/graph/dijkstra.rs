@@ -53,7 +53,7 @@ mod test {
 
     struct Problem {
         r: usize,
-        edges: Vec<Vec<(usize,i64)>>
+        edges: Vec<Vec<(usize, i64)>>,
     }
 
     fn new_problem(input: String) -> Problem {
