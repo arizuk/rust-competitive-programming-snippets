@@ -30,10 +30,37 @@ pub fn topological_sort(edges: &Vec<Vec<usize>>) -> Vec<usize> {
     sorted
 }
 
-#[test]
-fn test_topological_sort() {
-    let n = 5;
-    let edges =  vec![vec![1, 2], vec![3], vec![4], vec![4], vec![]];
-    let ans = topological_sort(&edges);
-    assert_eq!(ans, [0, 1, 2, 3, 4]);
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::io::BufReader;
+    use crate::scanner::Scanner;
+
+    #[test]
+    fn test_grl_4_b() {
+        let input = "
+            6 6
+            0 1
+            1 2
+            3 1
+            3 4
+            4 5
+            5 2
+            ".to_string();
+
+        let r = BufReader::new(input.as_bytes());
+        let mut sc = Scanner { reader: r };
+        let v:usize = sc.read();
+        let e:usize = sc.read();
+
+        let mut edges = vec![vec![]; v];
+        for _ in 0..e {
+            let s:usize = sc.read();
+            let t:usize = sc.read();
+            edges[s].push(t);
+        }
+
+        let ans = topological_sort(&edges);
+        assert_eq!(ans, [0, 3, 1, 4, 5, 2]);
+    }
 }
