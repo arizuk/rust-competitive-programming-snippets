@@ -33,8 +33,8 @@ pub fn topological_sort(edges: &Vec<Vec<usize>>) -> Vec<usize> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::io::BufReader;
     use crate::scanner::Scanner;
+    use std::io::BufReader;
 
     #[test]
     fn test_grl_4_b() {
@@ -46,17 +46,18 @@ mod tests {
             3 4
             4 5
             5 2
-            ".to_string();
+            "
+        .to_string();
 
         let r = BufReader::new(input.as_bytes());
         let mut sc = Scanner { reader: r };
-        let v:usize = sc.read();
-        let e:usize = sc.read();
+        let v: usize = sc.read();
+        let e: usize = sc.read();
 
         let mut edges = vec![vec![]; v];
         for _ in 0..e {
-            let s:usize = sc.read();
-            let t:usize = sc.read();
+            let s: usize = sc.read();
+            let t: usize = sc.read();
             edges[s].push(t);
         }
 
