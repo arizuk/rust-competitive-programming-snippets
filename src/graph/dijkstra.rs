@@ -4,7 +4,7 @@ pub mod dijkstra {
     use std::cmp::Ordering;
     use std::collections::BinaryHeap;
 
-    type Dist = i64;
+    type Dist = usize;
     pub const INF: Dist = 1 << 60;
 
     #[derive(Debug, Copy, Clone, Eq, PartialEq)]
@@ -53,7 +53,7 @@ mod tests {
 
     struct Problem {
         r: usize,
-        edges: Vec<Vec<(usize, i64)>>,
+        edges: Vec<Vec<(usize, usize)>>,
     }
 
     fn new_problem(input: String) -> Problem {
@@ -68,7 +68,7 @@ mod tests {
         for _ in 0..e {
             let s: usize = sc.read();
             let t: usize = sc.read();
-            let d: i64 = sc.read();
+            let d: usize = sc.read();
             edges[s].push((t, d));
         }
         Problem { r, edges }
