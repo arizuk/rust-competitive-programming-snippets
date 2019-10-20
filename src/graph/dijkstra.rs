@@ -22,12 +22,13 @@ pub mod dijkstra {
         }
     }
 
-    pub fn shortest_path(edges: &Vec<Vec<(usize, Dist)>>, s: usize) -> Vec<Dist> {
+    pub fn shortest_path(edges: &Vec<Vec<(usize, Dist)>>, start: usize) -> Vec<Dist> {
         let n = edges.len();
         let mut dist = vec![INF; n];
-        dist[s] = 0;
+        dist[start] = 0;
+
         let mut heap = BinaryHeap::new();
-        heap.push((Rev(0), s));
+        heap.push((Rev(0), start));
 
         while let Some((Rev(cur_dist), cur)) = heap.pop() {
             if dist[cur] < cur_dist {
