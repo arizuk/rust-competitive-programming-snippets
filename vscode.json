@@ -293,5 +293,12 @@
       "let msb = 64 - k.leading_zeros() - 1;"
     ],
     "description": "Get most significant bit"
+  },
+  "Char to int": {
+    "prefix": "char_to_int",
+    "body": [
+      "(c.to_digit(36).unwrap() - 10) as ${1:u8}"
+    ],
+    "description": "Convert a character to integer"
   }
 }
