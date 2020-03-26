@@ -11,7 +11,7 @@ dependencies = [
 
 [[package]]
 name = "cargo-snippet"
-version = "0.3.0"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
@@ -85,7 +85,7 @@ dependencies = [
 name = "snippets"
 version = "0.1.0"
 dependencies = [
- "cargo-snippet 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cargo-snippet 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "rand 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -96,7 +96,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [metadata]
 "checksum c2-chacha 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "7d64d04786e0f528460fc884753cf8dddcc466be308f6026f8e355c41a0e4101"
-"checksum cargo-snippet 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)" = "13bf81dbc64163f687059365b7e291fb623b15813fd3897fd0e8dbc0c3e23d81"
+"checksum cargo-snippet 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)" = "2a672b91fc430f77ed2ef3631f02d23b97b8a03872d6b01cc6a5ca5460b5a2ed"
 "checksum cfg-if 0.1.9 (registry+https://github.com/rust-lang/crates.io-index)" = "b486ce3ccf7ffd79fdeb678eac06a9e6c09fc88d33836340becb8fffe87c5e33"
 "checksum getrandom 0.1.12 (registry+https://github.com/rust-lang/crates.io-index)" = "473a1265acc8ff1e808cd0a1af8cee3c2ee5200916058a2ca113c29f2d903571"
 "checksum lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
